@@ -13,3 +13,5 @@ Methods in Consideration:
 - Logistic Regression
 
 So why are we doing this? Object recognition and machine/computer vision have many applications.  For example, it can be used to substitute labor and more efficiently complete a job.  In our case, stop sign recognition is a very introductory foundation for autonomous cars.  
+
+Dataset from https://github.com/mbasilyan/Stop-Sign-Detection
