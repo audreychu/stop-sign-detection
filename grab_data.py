@@ -8,17 +8,20 @@ import os
 import random
 
 
-def GetStreet(lat,lon,fov,name, SaveLoc ,heading = None,key = "AIzaSyC8gYKEg9WRbKU-abM0dAgMENvk8frwjAU"):
+def GetStreet(geom,fov,name, SaveLoc ,heading = None,key = "AIzaSyC8gYKEg9WRbKU-abM0dAgMENvk8frwjAU"):
     """Takes in latitude, longitude, fov, name of file, save location, heading (optional), and key (optional). It will randomly change lat and lon, and grab streetview image from there."""
-    lat += random.uniform(-.005,.005)
-    lon += random.uniform(-.005,.005)
+    split = geom.split(",")
+    lat = float(split[0][1:])
+    lon = float(split[1][:-1])
+    lat += random.uniform(-.00015,.00015)
+    lon += random.uniform(-.00015,.00015)
     if heading == None:
         pot_head = [0,90,180,270]
-        heading = random.choice(pot_head)
-    MyUrl = "https://maps.googleapis.com/maps/api/streetview?size=640x640&location={0},{1}&fov={2}&heading={3}&key={4}".format(lat,lon,fov,heading,key)
+    for heading in pot_head:
+        MyUrl = "https://maps.googleapis.com/maps/api/streetview?size=640x436&location={0},{1}&fov={2}&heading={3}&key={4}".format(lat,lon,fov,heading,key)
 
-    fi = name + ".jpg"
-    urllib.request.urlretrieve(MyUrl, os.path.join(SaveLoc,fi))
+        fi = name +str(heading) + ".jpg"
+        urllib.request.urlretrieve(MyUrl, os.path.join(SaveLoc,fi))
 
 def ReverseGeo(lat=35.1330343, lon=-90.0625056, api='AIzaSyBwTLTIHYJU_osZ-KKE-HlTH9EcowYJjDs'):
     """Takes lat (float), lon (float), and api key (string) (optional), returns zipcode for now, plan to return distance to nearest city in the future"""
@@ -42,3 +45,5 @@ def ReverseGeo(lat=35.1330343, lon=-90.0625056, api='AIzaSyBwTLTIHYJU_osZ-KKE-Hl
         pass
 
 __all__ = ('GetStreet','ReverseGeo')
+
+
