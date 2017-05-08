@@ -8,13 +8,15 @@ import os
 import random
 
 
-def GetStreet(geom,fov,name, SaveLoc ,heading = None,key = "AIzaSyC8gYKEg9WRbKU-abM0dAgMENvk8frwjAU"):
+def GetStreet(geom,fov, SaveLoc ,name = None,heading = None,key = "AIzaSyC8gYKEg9WRbKU-abM0dAgMENvk8frwjAU"):
     """Takes in latitude, longitude, fov, name of file, save location, heading (optional), and key (optional). It will randomly change lat and lon, and grab streetview image from there."""
     split = geom.split(",")
     lat = float(split[0][1:])
     lon = float(split[1][:-1])
     lat += random.uniform(-.00015,.00015)
     lon += random.uniform(-.00015,.00015)
+    if name == None:
+        name = str(geom)
     if heading == None:
         pot_head = [0,90,180,270]
     for heading in pot_head:
