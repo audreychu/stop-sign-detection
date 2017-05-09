@@ -9,7 +9,7 @@ def main():
     csv = pd.read_csv('./SF_location.csv')
     geom = csv['Geom']
     for g in geom.iloc[start:stop]:
-        GetStreet(g, 90, "test")
+        GetStreet(g, 120, "test")
 
 if __name__ == "__main__":
     main()

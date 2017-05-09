@@ -13,8 +13,9 @@ def GetStreet(geom,fov, SaveLoc ,name = None,heading = None,key = "AIzaSyC8gYKEg
     split = geom.split(",")
     lat = float(split[0][1:])
     lon = float(split[1][:-1])
-    lat += random.uniform(-.00015,.00015)
-    lon += random.uniform(-.00015,.00015)
+    pot_numb = [random.uniform(.00013,.0002),random.uniform(-.00013,-.0002)]
+    lat += random.choice(pot_numb)
+    lon += random.choice(pot_numb)
     if name == None:
         name = str(geom)
     if heading == None:
