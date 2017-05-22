@@ -1,0 +1,42 @@
+python retrain.py \
+  --bottleneck_dir=bottlenecks \
+  --model_dir=inception \
+  --summaries_dir=training_summaries/try2 \
+  --output_graph=retrained_graph.pb \
+  --output_labels=retrained_labels.txt \
+  --image_dir=stops \
+  --print_misclassified_test_images
+
+
+Test run 2 -- 4k steps
+=== MISCLASSIFIED TEST IMAGES ===
+             stops/NO - Absent2/(37.7631121627, -122.387808005)180.jpg  yes present2
+               stops/NO - Absent2/(37.7525496278, -122.392652595)0.jpg  yes present2
+             stops/NO - Absent2/(37.7690792989, -122.446758113)180.jpg  yes present2
+             stops/NO - Absent2/(37.7670749185, -122.413273036)180.jpg  yes present2
+               stops/NO - Absent2/(37.7536213078, -122.450722078)0.jpg  yes present2
+             stops/NO - Absent2/(37.7536213078, -122.450722078)180.jpg  yes present2
+              stops/NO - Absent2/(37.7758991311, -122.419504727)90.jpg  yes present2
+             stops/NO - Absent2/(37.7754218041, -122.434496537)180.jpg  yes present2
+             stops/NO - Absent2/(37.7580658663, -122.474606954)270.jpg  yes present2
+               stops/NO - Absent2/(37.7758670864, -122.494117206)0.jpg  yes present2
+              stops/NO - Absent2/(37.7565868638, -122.465803109)90.jpg  yes present2
+             stops/NO - Absent2/(37.7542352741, -122.412060478)270.jpg  yes present2
+             stops/NO - Absent2/(37.8049290255, -122.440830899)180.jpg  yes present2
+            stops/YES - Present2/(37.7573453051, -122.44590415)180.jpg  no absent2
+            stops/YES - Present2/(37.763819629, -122.456683131)180.jpg  no absent2
+           stops/YES - Present2/(37.7966753877, -122.438792622)180.jpg  no absent2
+           stops/YES - Present2/(37.7596965652, -122.428215538)180.jpg  no absent2
+             stops/YES - Present2/(37.7835141421, -122.446046247)0.jpg  no absent2
+              stops/YES - Present2/(37.797302974, -122.433859952)0.jpg  no absent2
+           stops/YES - Present2/(37.7950209672, -122.436774195)180.jpg  no absent2
+             stops/YES - Present2/(37.7510388378, -122.411759436)0.jpg  no absent2
+           stops/YES - Present2/(37.8046428165, -122.443805189)270.jpg  no absent2
+           stops/YES - Present2/(37.7142874938, -122.438287888)180.jpg  no absent2
+             stops/YES - Present2/(37.746886405, -122.411623031)90.jpg  no absent2
+             stops/YES - Present2/(37.7207717929, -122.404030961)0.jpg  no absent2
+            stops/YES - Present2/(37.766666973, -122.433345121)180.jpg  no absent2
+              stops/YES - Present2/(37.7138142624, -122.41203345)0.jpg  no absent2
+            stops/YES - Present2/(37.7931034206, -122.429638461)90.jpg  no absent2
+             stops/YES - Present2/(37.7497007498, -122.433942302)0.jpg  no absent2
+
