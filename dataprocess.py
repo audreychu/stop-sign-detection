@@ -15,7 +15,7 @@ from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 
 
-#os.chdir("C://Users/Jeremy/Desktop/School/160")
+os.chdir("C://Users/Jeremy/Desktop/School/160")
 '''
 testimage = Image.open('resizedyes/(37.71791711, -122.466248488)180.jpg')
 testimagec = testimage.copy()
@@ -23,11 +23,11 @@ testimagec.show()
 t = np.array(testimagec)'''
 
 yespathlist = []
-for p in glob.glob('resizedyes/*.jpg'):
+for p in glob.glob('tinyresizedyes/*.jpg'):
     yespathlist.append(p)
     
 nopathlist = []
-for p in glob.glob('resizedno/*.jpg'):
+for p in glob.glob('tinyresizedno/*.jpg'):
     nopathlist.append(p)
 #nopathlist=random.shuffle(nopathlist)
 nopathlist = nopathlist[0:len(yespathlist)]
@@ -87,13 +87,11 @@ convnet = regression(convnet, optimizer = 'adam', loss='categorical_crossentropy
 model = tflearn.DNN(convnet, tensorboard_dir = '/tmp/tflearn_logs/')
 
 #fits model
-if os.path.exists('stopsign.meta'):
+'''if os.path.exists('stopsign.meta'):
     model.load('stopsign')
     print('model loaded')
+'''
+model.fit({'input': xtrain}, {'targets': ytrain}, n_epoch = 10, snapshot_epoch = True, run_id = 'stopsign', validation_set=({'input': xvalid}, {'targets': yvalid}), batch_size = 1)
 
-else:
-    model.fit({'input': xtrain}, {'targets': ytrain}, n_epoch = 10, snapshot_epoch = True, run_id = 'stopsign', 
-              snapshot_steps = '200', validation_set=({'input': xvalid}, {'targets': yvalid}))
     
-    
-    model.save('./stopsign.model')
+model.save('C://Users/Jeremy/Desktop/School/160/stopsign.model')
