@@ -15,7 +15,7 @@ from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 
 
-os.chdir("C://Users/Jeremy/Desktop/School/160")
+#os.chdir("C://Users/Jeremy/Desktop/School/160")
 '''
 testimage = Image.open('resizedyes/(37.71791711, -122.466248488)180.jpg')
 testimagec = testimage.copy()
@@ -96,4 +96,4 @@ else:
               snapshot_steps = '200', validation_set=({'input': xvalid}, {'targets': yvalid}))
     
     
-    model.save('C://Users/Jeremy/Desktop/School/160/tflearnsimpleCNN.model')
+    model.save('./stopsign.model')
