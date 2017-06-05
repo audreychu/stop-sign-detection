@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import random
 import sklearn
-from sklearn.cross_validation import train_test_split
+#from sklearn.cross_validation import train_test_split
 #apparently it's called something else in my version of sklearn idk
-#from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split
 import os
 from PIL import Image
 import glob
@@ -16,11 +16,11 @@ from tflearn.layers.estimator import regression
 
 
 os.chdir("C://Users/Jeremy/Desktop/School/160")
-
+'''
 testimage = Image.open('resizedyes/(37.71791711, -122.466248488)180.jpg')
 testimagec = testimage.copy()
 testimagec.show()
-t = np.array(testimagec)
+t = np.array(testimagec)'''
 
 yespathlist = []
 for p in glob.glob('resizedyes/*.jpg'):
@@ -63,20 +63,20 @@ xvalid, xtest, yvalid, ytest = train_test_split(x2, y2, test_size = 0.5)
 #start of building net
 convnet = input_data(shape = [None, 640, 436, 3], name = 'input')
 
-convnet = conv_2D(incoming = convnet, nb_filter = 32, filter_size =  2, activation = 'relu', name = 'layer1')
-convnet = max_pool_2D(convnet, 2, name = 'maxpool1')
+convnet = conv_2d(incoming = convnet, nb_filter = 32, filter_size =  2, activation = 'relu', name = 'layer1')
+convnet = max_pool_2d(convnet, 2, name = 'maxpool1')
 
-convnet = conv_2D(incoming = convnet, nb_filter = 64, filter_size =  2, activation = 'relu', name = 'layer2')
-convnet = max_pool_2D(convnet, 2, name = 'maxpool2')
+convnet = conv_2d(incoming = convnet, nb_filter = 64, filter_size =  2, activation = 'relu', name = 'layer2')
+convnet = max_pool_2d(convnet, 2, name = 'maxpool2')
 
-convnet = conv_2D(incoming = convnet, nb_filter = 128, filter_size =  2, activation = 'relu', name = 'layer3')
-convnet = max_pool_2D(convnet, 2, name = 'maxpool3')
+convnet = conv_2d(incoming = convnet, nb_filter = 128, filter_size =  2, activation = 'relu', name = 'layer3')
+convnet = max_pool_2d(convnet, 2, name = 'maxpool3')
 
-convnet = conv_2D(incoming = convnet, nb_filter = 256, filter_size =  2, activation = 'relu', name = 'layer4')
-convnet = max_pool_2D(convnet, 2, name = 'maxpool4')
+convnet = conv_2d(incoming = convnet, nb_filter = 256, filter_size =  2, activation = 'relu', name = 'layer4')
+convnet = max_pool_2d(convnet, 2, name = 'maxpool4')
 
-convnet = conv_2D(incoming = convnet, nb_filter = 512, filter_size =  2, activation = 'relu', name = 'layer5')
-convnet = max_pool_2D(convnet, 2, name = 'maxpool5')
+convnet = conv_2d(incoming = convnet, nb_filter = 512, filter_size =  2, activation = 'relu', name = 'layer5')
+convnet = max_pool_2d(convnet, 2, name = 'maxpool5')
 
 convnet = fully_connected(convnet, n_units = 1024,activation = 'relu', name = 'fullyconnected1')
 convnet = dropout(convnet, keep_prob = 0.8, name = 'dropout')
@@ -89,7 +89,7 @@ model = tflearn.DNN(convnet, tensorboard_dir = '/tmp/tflearn_logs/')
 #fits model
 if os.path.exists('stopsign.meta'):
     model.load('stopsign')
-    print 'model loaded'
+    print('model loaded')
 
 else:
     model.fit({'input': xtrain}, {'targets': ytrain}, n_epoch = 10, snapshot_epoch = True, run_id = 'stopsign', 
