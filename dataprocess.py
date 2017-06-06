@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import random
 import sklearn
-#from sklearn.cross_validation import train_test_split
+from sklearn.cross_validation import train_test_split
 #apparently it's called something else in my version of sklearn idk
-from sklearn.model_selection import train_test_split
+#from sklearn.model_selection import train_test_split
 import os
 from PIL import Image
 import glob
@@ -38,19 +38,21 @@ labellist = []
 image_list = []
 for path in allpath:
     for filename in glob.glob(path):
-        if len(image_list) < 1600:
-                if len(image_list) < 789:
-                    label = [1, 0]
-                else:
-                    label = [0, 1]
-                im=Image.open(filename)
-                c = im.copy()
-                image_list.append(np.array(c))
-                labellist.append(np.array(label))
-                im.close()
+            if len(image_list) < len(yespathlist):
+                label = 1
+            else:
+                label = 0
+            im=Image.open(filename)
+            c = im.copy()
+            image_list.append(np.array(c))
+            labellist.append(np.array(label))
+            im.close()
 
-
-
+enc = sklearn.preprocessing.OneHotEncoder()
+enc.fit(labellist)
+labellist = enc.transform(labellist)
+labellist=labellist.T
+labellist = labellist.todense()
 
 #789 are yes
 
@@ -59,26 +61,27 @@ for path in allpath:
 xtrain, x2, ytrain, y2 = train_test_split(image_list, labellist, test_size = 0.2)
 xvalid, xtest, yvalid, ytest = train_test_split(x2, y2, test_size = 0.5)
 
+image_list[0]
 
 #start of building net
 convnet = input_data(shape = [None, 640, 436, 3], name = 'input')
 
-convnet = conv_2d(incoming = convnet, nb_filter = 32, filter_size =  2, activation = 'relu', name = 'layer1')
+convnet = conv_2d(incoming = convnet, nb_filter = 8, filter_size =  2, activation = 'relu', name = 'layer1')
 convnet = max_pool_2d(convnet, 2, name = 'maxpool1')
 
-convnet = conv_2d(incoming = convnet, nb_filter = 64, filter_size =  2, activation = 'relu', name = 'layer2')
+convnet = conv_2d(incoming = convnet, nb_filter = 16, filter_size =  2, activation = 'relu', name = 'layer2')
 convnet = max_pool_2d(convnet, 2, name = 'maxpool2')
 
-convnet = conv_2d(incoming = convnet, nb_filter = 128, filter_size =  2, activation = 'relu', name = 'layer3')
+convnet = conv_2d(incoming = convnet, nb_filter = 32, filter_size =  2, activation = 'relu', name = 'layer3')
 convnet = max_pool_2d(convnet, 2, name = 'maxpool3')
 
-convnet = conv_2d(incoming = convnet, nb_filter = 256, filter_size =  2, activation = 'relu', name = 'layer4')
+convnet = conv_2d(incoming = convnet, nb_filter = 64, filter_size =  2, activation = 'relu', name = 'layer4')
 convnet = max_pool_2d(convnet, 2, name = 'maxpool4')
 
-convnet = conv_2d(incoming = convnet, nb_filter = 512, filter_size =  2, activation = 'relu', name = 'layer5')
+convnet = conv_2d(incoming = convnet, nb_filter = 128, filter_size =  2, activation = 'relu', name = 'layer5')
 convnet = max_pool_2d(convnet, 2, name = 'maxpool5')
 
-convnet = fully_connected(convnet, n_units = 1024,activation = 'relu', name = 'fullyconnected1')
+convnet = fully_connected(convnet, n_units = 256,activation = 'relu', name = 'fullyconnected1')
 convnet = dropout(convnet, keep_prob = 0.8, name = 'dropout')
 
 convnet = fully_connected(convnet, n_units = 2,activation = 'softmax', name = 'fullyconnected2')
