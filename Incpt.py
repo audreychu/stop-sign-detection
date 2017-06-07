@@ -19,18 +19,13 @@ from tflearn.layers.merge_ops import merge
 
 #os.chdir("C://Users/Jeremy/Desktop/School/160")
 #os.chdir("C:\\Users\\Austin Chi\\Google Drive\\Other\\misc")
-'''
-testimage = Image.open('resizedyes/(37.71791711, -122.466248488)180.jpg')
-testimagec = testimage.copy()
-testimagec.show()
-t = np.array(testimagec)'''
 
 yespathlist = []
-for p in glob.glob('tinyresizedyes/*.jpg'):
+for p in glob.glob('yesphotos/*.jpg'):
     yespathlist.append(p)
     
 nopathlist = []
-for p in glob.glob('tinyresizedno/*.jpg'):
+for p in glob.glob('nophotos/*.jpg'):
     nopathlist.append(p)
 #nopathlist=random.shuffle(nopathlist)
 nopathlist = nopathlist[0:len(yespathlist)]
@@ -139,14 +134,10 @@ network = regression(loss, optimizer='momentum',
                      loss='categorical_crossentropy',
                      learning_rate=0.001)
 
-model = tflearn.DNN(network, tensorboard_dir = '/tmp/tflearn_logs/')
+model = tflearn.DNN(network, tensorboard_dir = '/home/sta160-jweidner/tboard')
 
-#fits model
-'''if os.path.exists('stopsign.meta'):
-    model.load('stopsign')
-    print('model loaded')
-'''
-model.fit(xtrain,ytrain, n_epoch = 100, snapshot_epoch = True, run_id = 'stopsign', validation_set=(xvalid,yvalid),snapshot_step = 50, show_metric = True)
+
+model.fit(xtrain,ytrain, n_epoch = 100, snapshot_epoch = True, run_id = 'block1', validation_set=(xvalid,yvalid),snapshot_step = 50, show_metric = True)
 
     
-model.save('C://Users/Jeremy/Desktop/School/160/stopsign.model')
+model.save('block1.model')
