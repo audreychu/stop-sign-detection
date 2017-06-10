@@ -16,16 +16,18 @@ from tflearn.layers.core import input_data, dropout, fully_connected
 from tflearn.layers.estimator import regression
 from tflearn.layers.merge_ops import merge
 
-
+label = str(random.randint(0,100000000))
+MODEL_NAME ="Mini_Inception"
+PATH = "C:\\Users\\austi\\Desktop\\"
 #os.chdir("C://Users/Jeremy/Desktop/School/160")
-#os.chdir("C:\\Users\\Austin Chi\\Google Drive\\Other\\misc")
+os.chdir("D:\\Google Drive\\Other\\misc\\testbatch26k")
 
 yespathlist = []
-for p in glob.glob('yesphotos/*.jpg'):
+for p in glob.glob('No/*.jpg'):
     yespathlist.append(p)
     
 nopathlist = []
-for p in glob.glob('nophotos/*.jpg'):
+for p in glob.glob('Yes/*.jpg'):
     nopathlist.append(p)
 #nopathlist=random.shuffle(nopathlist)
 nopathlist = nopathlist[0:len(yespathlist)]
@@ -60,7 +62,7 @@ xvalid, xtest, yvalid, ytest = train_test_split(x2, y2, test_size = 0.5)
 
 
 #start of building net
-network = input_data(shape=[None, 109, 160, 3])
+network = input_data(shape=[None, 436, 640, 3])
 conv1_7_7 = conv_2d(network, 64, 7, strides=2, activation='relu', name = 'conv1_7_7_s2')
 pool1_3_3 = max_pool_2d(conv1_7_7, 3,strides=2)
 pool1_3_3 = batch_normalization(pool1_3_3)
@@ -137,7 +139,7 @@ network = regression(loss, optimizer='momentum',
 model = tflearn.DNN(network, tensorboard_dir = '/home/sta160-jweidner/tboard')
 
 
-model.fit(xtrain,ytrain, n_epoch = 100, snapshot_epoch = True, run_id = 'block1', validation_set=(xvalid,yvalid),snapshot_step = 50, show_metric = True)
-
+model.fit(xtrain,ytrain, n_epoch = 1, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 50, show_metric = True,run_id = MODEL_NAME)
+model.save(PATH + MODEL_NAME)
     
-model.save('block1.model')
+
