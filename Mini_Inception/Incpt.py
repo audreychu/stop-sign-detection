@@ -94,7 +94,13 @@ network = regression(loss, optimizer='momentum',
 model = tflearn.DNN(network, tensorboard_verbose = 0,best_checkpoint_path = PWD,tensorboard_dir = "C:\\tmp\\tflearn_logs")
 
 
-model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=50)
-model.save(PATH + MODEL_NAME)
     
 
+
+
+if os.path.exists('Mini_Inception8861.meta'.format(MODEL_NAME)):
+    model.load(MODEL_NAME)
+    print("Model Loaded")
+else: 
+    model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=50)
+    model.save(PATH + MODEL_NAME)
