@@ -4,18 +4,32 @@ from sklearn.model_selection import train_test_split,cross_val_score
 import numpy as np
 
 
-data = pd.read_csv("hog_data.csv")
+data = pd.read_csv("hog_data2.csv")
 del data['index']
 Y = data['Stop']
 X = data.drop('Stop',axis=1)
-del X['level_0']
+# del X['level_0']
 
 
 Xtrain,Xtest,Ytrain,Ytest = train_test_split(X,Y,test_size = .2)
 
 model = LogisticRegression()
-model.fit(Xtrain,Ytrain)
-test = model.predict(Xtest)
+model.fit(Xtrain[Xtrain.columns[:-1]],Ytrain)
+test = model.predict(Xtest[Xtest.columns[:-1]])
 
-scores = cross_val_score(model, X, Y, cv=100)
+
+
+y = list(Ytest)
+yhat = list(test)
+count = 0
+for i in xrange(len(test)):
+    if y[i]==yhat[i]:
+        count += 1.0
+        
+print float(count/len(test))
+
+
+
+scores = cross_val_score(model,Xtrain[Xtrain.columns[:-1]], Ytrain, cv=100)
 print(np.average(scores))
+# 0.739331501832
