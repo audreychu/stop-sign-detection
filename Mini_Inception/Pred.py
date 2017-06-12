@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import os
 from PIL import Image
 import glob
-
+import pickle
 import tflearn
 from tflearn.layers.normalization import batch_normalization
 from tflearn.layers.conv import conv_2d, conv_2d_transpose, max_pool_2d, avg_pool_2d, upsample_2d, conv_1d, max_pool_1d, avg_pool_1d, residual_block, residual_bottleneck, conv_3d, max_pool_3d, avg_pool_3d, highway_conv_1d, highway_conv_2d, global_avg_pool, global_max_pool
@@ -98,8 +98,8 @@ model = tflearn.DNN(network, tensorboard_verbose = 0,best_checkpoint_path = PWD,
 
 
 
-if os.path.exists('Mini_Inception8861.meta'.format(MODEL_NAME)):
-    model.load(MODEL_NAME)
+if os.path.exists('INCPT.meta'):
+    model.load('INCPT')
     print("Model Loaded")
 else: 
     model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=50)
@@ -107,9 +107,8 @@ else:
 
 
 Xlist = []
-for p in glob.glob('*.jpg'):
+for p in sorted(glob.glob('*.png'), key=os.path.getmtime):
     Xlist.append(p)
-
 
 X = []
 for path in Xlist:
@@ -118,7 +117,8 @@ for path in Xlist:
     c = im.copy()
     a = np.array(c)
     im.close()
-    X.append(a)
-
-
-print(model.predict(X))
+    probs = model.predict([a])
+    X.append(probs[0][1])
+print(min(X))
+with open("heatmaparray.pickle",'wb') as mat:
+    pickle.dump(X,mat)

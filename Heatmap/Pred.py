@@ -98,8 +98,8 @@ model = tflearn.DNN(network, tensorboard_verbose = 0,best_checkpoint_path = PWD,
 
 
 
-if os.path.exists('Mini_Inception8924.meta'):
-    model.load('Mini_Inception8924')
+if os.path.exists('{0}.meta'.format(MODEL_NAME)):
+    model.load(MODEL_NAME)
     print("Model Loaded")
 else: 
     model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=50)
@@ -107,7 +107,7 @@ else:
 
 
 Xlist = []
-for p in sorted(glob.glob('*.png'), key=os.path.getmtime):
+for p in sorted(glob.glob('*.jpg'), key=os.path.getmtime):
     Xlist.append(p)
 
 X = []

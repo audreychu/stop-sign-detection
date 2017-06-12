@@ -19,7 +19,7 @@ MODEL_NAME ="INCPT"
 PWD = "C:\\Users\\austi\\Dropbox\\STA 160\\stop-sign-detection\\Mini_Inception\\Mini_Inception"
 PATH = "C:\\Users\\austi\\Desktop\\"
 #os.chdir("C://Users/Jeremy/Desktop/School/160")
-os.chdir("D:\\Google Drive\\Other\\misc\\testbatch26k")
+os.chdir("C:\\Users\\Austin Chi\\Google Drive\\Other\\misc\\testbatch26k")
 
 yespathlist = []
 for p in glob.glob('Yes/*.jpg'):
@@ -102,5 +102,5 @@ if os.path.exists('Mini_Inception8861.meta'.format(MODEL_NAME)):
     model.load(MODEL_NAME)
     print("Model Loaded")
 else: 
-    model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=50)
+    model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=1)
     model.save(PATH + MODEL_NAME)

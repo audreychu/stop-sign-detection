@@ -15,7 +15,7 @@ from tflearn.layers.estimator import regression
 from tflearn.layers.merge_ops import merge
 
 label = str(random.randint(0,100000000))
-MODEL_NAME ="INCPT"
+MODEL_NAME ="Mini_Inception8924"
 PWD = "C:\\Users\\austi\\Dropbox\\STA 160\\stop-sign-detection\\Mini_Inception\\Mini_Inception"
 PATH = "C:\\Users\\austi\\Desktop\\"
 #os.chdir("C://Users/Jeremy/Desktop/School/160")
@@ -61,7 +61,6 @@ PATH = "C:\\Users\\austi\\Desktop\\"
 #xtrain, x2, ytrain, y2 = train_test_split(image_list, labellist, test_size = 0.2,random_state = 1)
 #xvalid, xtest, yvalid, ytest = train_test_split(x2, y2, test_size = 0.5,random_state=1)
 
-
 #start of building net
 network = input_data(shape=[None, 436, 640, 3])
 conv1_7_7 = conv_2d(network, 16, 7, strides=2, activation='relu', name = 'conv1_7_7_s2')
@@ -98,8 +97,8 @@ model = tflearn.DNN(network, tensorboard_verbose = 0,best_checkpoint_path = PWD,
 
 
 
-if os.path.exists('Mini_Inception8924.meta'):
-    model.load('Mini_Inception8924')
+if os.path.exists('{0}.meta'.format(MODEL_NAME)):
+    model.load(MODEL_NAME)
     print("Model Loaded")
 else: 
     model.fit(xtrain,ytrain, n_epoch = 900, snapshot_epoch = True, validation_set=(xvalid,yvalid),snapshot_step = 500, show_metric = True, run_id = MODEL_NAME,batch_size=50)
@@ -107,7 +106,7 @@ else:
 
 
 Xlist = []
-for p in sorted(glob.glob('*.png'), key=os.path.getmtime):
+for p in sorted(glob.glob('*.jpg'), key=os.path.getmtime):
     Xlist.append(p)
 
 X = []
@@ -119,6 +118,6 @@ for path in Xlist:
     im.close()
     probs = model.predict([a])
     X.append(probs[0][1])
-print(min(X))
+print(X)
 with open("heatmaparray.pickle",'wb') as mat:
     pickle.dump(X,mat)
