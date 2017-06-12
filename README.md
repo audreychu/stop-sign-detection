@@ -1,17 +1,13 @@
 # Detection of Stop Signs
 
-## Goals:
-- Identify the best method to detect stop signs
-- Expand this method to identify speed limit signs
-- Frame by frame analysis of stop signs (Bayesian Inference)
+## Abstract
 
-We plan to develop an algorithm and program to distinguish the presence of a stop sign in a photograph.  We will use neural networks and image/object recognition.  As stated in class, tackling the case of machine learning or facial recognition in autonomous cars in ten weeks will be unfeasible, we opted for a related but more simple goal.  Specifically, we hope to use images from current datasets to discover the best method for identification.
+In this project, we examine methods for detecting the presence of stop signs in photographs including:
 
-Methods in Consideration:
-- Neural Networks
-- Random Forrest Decision Trees
-- Logistic Regression
+-  Transfer Model with Google’s Inception V3
+-  Mini-Inception Block Neural Network
+-  Convolutional Neural Network
+-  Logistic Regression using HOG
 
-So why are we doing this? Object recognition and machine/computer vision have many applications.  For example, it can be used to substitute labor and more efficiently complete a job.  In our case, stop sign recognition is a very introductory foundation for autonomous cars.  
+As stated in class, tackling the case of machine learning in autonomous cars in ten weeks would be infeasible, and so we opted for a related but more simple goal. On a broader spectrum, we hoped to achieve a deeper understanding of machine learning for self-driving cars. At the end of our complete analysis, we found that Mini-Inception Block Neural Network achieved the best accuracy at about 89%, 3% higher the fully retrained Inception V3 model. Retrained Inception managed an accuracy of 86% but was not robust to red non-stop-sign objects. Logistic Regression achieved 73% accuracy by identifying roads instead of stop signs, while Convolutional Feed Forward Neural Network were the worst performing at 71%.
 
-Dataset from https://github.com/mbasilyan/Stop-Sign-Detection
