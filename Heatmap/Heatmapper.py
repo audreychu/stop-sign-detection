@@ -19,7 +19,7 @@ import matplotlib as mpl
 #norm = mpl.colors.BoundaryNorm(bounds, cmap.N)
 
 # tell imshow about color map so that only set colors are used
-img = pyplot.imshow(lister,cmap = 'coolwarm')
+img = pyplot.imshow(lister,cmap = 'coolwarm',vmin=0,vmax=1)
 
 # make a color bar
 pyplot.colorbar(img,cmap='coolwarm')

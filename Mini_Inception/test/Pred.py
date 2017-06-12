@@ -90,7 +90,7 @@ network = regression(loss, optimizer='momentum',
                      loss='categorical_crossentropy',
                      learning_rate=0.001)
 
-model = tflearn.DNN(network, tensorboard_verbose = 0,best_checkpoint_path = PWD,tensorboard_dir = "C:\\tmp\\tflearn_logs")
+model = tflearn.DNN(network)
 
 
     

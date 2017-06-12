@@ -107,7 +107,7 @@ else:
 
 
 Xlist = []
-for p in sorted(glob.glob('*.jpg'), key=os.path.getmtime):
+for p in sorted(glob.glob('*.png'), key=os.path.getmtime):
     Xlist.append(p)
 
 X = []
